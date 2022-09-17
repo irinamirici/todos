@@ -1,0 +1,21 @@
+<p *ngIf="!todos"><em>Loading...</em></p>
+<div fxLayout="row wrap" fxLayoutAlign="left" fxLayoutGap="16px">
+
+  <mat-form-field class="search-form-field" appearance="fill">
+    <mat-label>Search</mat-label>
+    <input matInput type="text" [(ngModel)]="search">
+    <button *ngIf="search" matSuffix mat-icon-button aria-label="Clear" (click)="doSearch()">
+      <mat-icon>search</mat-icon>
+    </button>
+  </mat-form-field>
+
+  <div class="filler"></div>
+
+  <button>Add TODO</button>
+</div>
+
+<div fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap="16px grid">
+  <div fxFlex="20%" *ngFor="let todo of todos">
+    <todo-card [todo]="todo"></todo-card>
+  </div>
+</div>

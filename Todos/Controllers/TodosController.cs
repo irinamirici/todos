@@ -10,9 +10,12 @@ public class TodosController : ControllerBase
 {
     private static readonly Todo[] SampleTodos = new Todo[]
     {
-        new Todo{ Id= 1, Description = "Feed the Cat", IsDone = false, CreatedAt = DateTimeOffset.UtcNow},
-        new Todo{ Id= 2, Description = "Buy cat food", IsDone = false, CreatedAt = DateTimeOffset.UtcNow},
-        new Todo{ Id= 3, Description = "Laundry", IsDone = false, CreatedAt = DateTimeOffset.UtcNow},
+        new Todo{ Id = 1, Description = "Feed the Cat", IsDone = false, CreatedAt = DateTimeOffset.UtcNow},
+        new Todo{ Id = 2, Description = "Buy cat food", IsDone = false, CreatedAt = DateTimeOffset.UtcNow},
+        new Todo{ Id = 3, Description = "Laundry", IsDone = false, CreatedAt = DateTimeOffset.UtcNow},
+        new Todo{ Id= 11, Description = "Feed the Cat", IsDone = false, CreatedAt = DateTimeOffset.UtcNow},
+        new Todo{ Id= 21, Description = "Buy cat food", IsDone = false, CreatedAt = DateTimeOffset.UtcNow},
+        new Todo{ Id= 31, Description = "Laundry", IsDone = false, CreatedAt = DateTimeOffset.UtcNow},
     };
 
     private readonly ILogger<TodosController> _logger;

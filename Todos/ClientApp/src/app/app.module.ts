@@ -4,12 +4,25 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
+// material
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
 import { CounterComponent } from './counter/counter.component';
-import { FetchDataComponent } from './fetch-data/fetch-data.component';
+import { TodoListComponent } from './todo-list/todo-list.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { TodoCardComponent } from './todos/todo-card.component';
 
 @NgModule({
   declarations: [
@@ -17,16 +30,29 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     NavMenuComponent,
     HomeComponent,
     CounterComponent,
-    FetchDataComponent
+    TodoListComponent,
+    TodoCardComponent,
   ],
   imports: [
+    // material
+    FlexLayoutModule,
+    MatGridListModule,
+    MatCardModule,
+    MatIconModule,
+    MatPaginatorModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatButtonModule,
+    MatDividerModule,
+    MatProgressBarModule,
+
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     FormsModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'counter', component: CounterComponent },
-      { path: 'fetch-data', component: FetchDataComponent },
+      { path: 'todos', component: TodoListComponent },
     ]),
     BrowserAnimationsModule
   ],

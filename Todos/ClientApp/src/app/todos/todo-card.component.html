@@ -1,0 +1,11 @@
+<mat-card class="todo-card">
+    <mat-card-content>
+        <p>{{ todo.description }}</p>
+    </mat-card-content>
+    <mat-divider inset></mat-divider>
+    <mat-card-actions>
+    </mat-card-actions>
+    <mat-card-footer *ngIf="loading">
+        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    </mat-card-footer>
+</mat-card>

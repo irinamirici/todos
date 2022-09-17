@@ -1,0 +1,8 @@
+.search-form-field {
+    width: 200px;
+}
+
+.filler {
+    flex-grow: 1;
+    text-align: center;
+}
