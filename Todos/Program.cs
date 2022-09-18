@@ -1,21 +1,16 @@
-using Azure;
-using Microsoft.Extensions.Azure;
 using Todos.Persistence.Configuration;
 using Todos.Persistence.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var searchConfiguration = new SearchConfiguration();
-builder.Configuration.GetSection(SearchConfiguration.ConfigurationKey).Bind(searchConfiguration);
-
 // Add services to the container.
-builder.Services.AddAzureClients(builder =>
-{
-    builder.AddSearchIndexClient(new
-        Uri(searchConfiguration.Endpoint), new
-        AzureKeyCredential(searchConfiguration.ApiKey));
-});
-builder.Services.AddRepositories();
+var confSection = builder.Configuration.GetSection(SearchConfiguration.ConfigurationKey);
+builder.Services.Configure<SearchConfiguration>(confSection);
+
+var searchConfiguration = new SearchConfiguration();
+confSection.Bind(searchConfiguration);
+
+builder.Services.AddPersistence(searchConfiguration);
 
 builder.Services.AddControllersWithViews();
 

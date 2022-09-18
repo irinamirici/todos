@@ -2,28 +2,30 @@ using Todos.Persistence.Domain;
 using Azure.Search.Documents.Indexes;
 using Azure.Search.Documents;
 using Azure.Search.Documents.Models;
+using Todos.Persistence.Configuration;
+using Microsoft.Extensions.Options;
 
 namespace Todos.Persistence.Repository;
 
 public class TodosRepository : IRepository<Todo>
 {
-    private readonly SearchIndexClient searchIndexClient;
+    private readonly SearchClient searchClient;
+    private readonly SearchConfiguration searchConfiguration;
 
-    public TodosRepository(SearchIndexClient searchIndexClient)
+    public TodosRepository(SearchIndexClient searchIndexClient, IOptions<SearchConfiguration> confOptions)
     {
-        this.searchIndexClient = searchIndexClient;
+        searchConfiguration = confOptions.Value;
+        searchClient = searchIndexClient.GetSearchClient(searchConfiguration.IndexName);
     }
 
     public async Task<Todo> Find(string id)
     {
-        var todo = await this.searchIndexClient
-            .GetSearchClient("todos1")
-            .GetDocumentAsync<Todo>(id);
+        var todo = await this.searchClient.GetDocumentAsync<Todo>(id);
 
         return todo;
     }
 
-    public async Task<IEnumerable<Todo>> Search(string searchTerm)
+    public async Task<IEnumerable<Todo>> Search(string? searchTerm)
     {
         if (string.IsNullOrWhiteSpace(searchTerm))
         {
@@ -40,9 +42,7 @@ public class TodosRepository : IRepository<Todo>
             SearchMode = SearchMode.All,
             SearchFields = { "Description" }
         };
-        var result = await this.searchIndexClient
-            .GetSearchClient("todos1")
-            .SearchAsync<Todo>(searchTerm, searchOptions);
+        var result = await this.searchClient.SearchAsync<Todo>(searchTerm, searchOptions);
 
         var todos = result.Value.GetResults().Select(x => x.Document).ToArray();
 
