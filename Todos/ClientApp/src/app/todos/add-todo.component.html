@@ -1,0 +1,18 @@
+<mat-card class="todo-card">
+    <mat-card-content>
+        <p>new todo{{ description }}</p>
+    </mat-card-content>
+    <mat-divider inset></mat-divider>
+    <mat-card-actions>
+        <button mat-mini-fab color="warn" aria-label="Example icon button with a cancel icon" (click)="cancel()">
+            <mat-icon>cancel</mat-icon>
+        </button>
+
+        <button mat-mini-fab color="accent" aria-label="Example icon button with a save icon" (click)="save()">
+            <mat-icon>save</mat-icon>
+        </button>
+    </mat-card-actions>
+    <mat-card-footer *ngIf="loading">
+        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    </mat-card-footer>
+</mat-card>

@@ -4,6 +4,13 @@
     </mat-card-content>
     <mat-divider inset></mat-divider>
     <mat-card-actions>
+        <button mat-mini-fab color="warn" aria-label="Example icon button with a delete icon" (click)="delete()">
+            <mat-icon>delete</mat-icon>
+        </button>
+
+        <button mat-mini-fab color="accent" aria-label="Example icon button with a check icon" (click)="markAsDone()">
+            <mat-icon>check</mat-icon>
+        </button>
     </mat-card-actions>
     <mat-card-footer *ngIf="loading">
         <mat-progress-bar mode="indeterminate"></mat-progress-bar>

@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Todo } from '../todos/todo';
+import { TodosService } from '../services/todos.service';
 
 @Component({
   selector: 'app-todo-list',
@@ -10,35 +11,36 @@ import { Todo } from '../todos/todo';
 export class TodoListComponent implements OnInit {
   public todos: Todo[] = [];
   public search: string = '';
-  baseUrl: string;
-  http: HttpClient;
+  addTodo: boolean = false;
 
-  constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
-    this.baseUrl = baseUrl;
-    this.http = http;
-  }
+  constructor(private service: TodosService) { }
 
   ngOnInit(): void {
     this.doSearch();
   }
 
   doSearch() {
-    const headerDict = {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
-    }
-    const requestOptions = {
-      headers: new HttpHeaders(headerDict),
-    };
-    let body = {
-      searchTerm: this.search
-    }
-    console.log('search ' + this.search);
-    this.http.post<Todo[]>(this.baseUrl + 'api/todos', body, requestOptions).subscribe(result => {
-      this.todos = result;
-    }, error => console.error(error));
+    console.log("do search")
+    this.service.getTodos(this.search)
+      .subscribe((result) => this.todos = result);
+  }
 
-    this.search = "done";
+  todoAdded(todo: Todo) {
+    this.addTodo = false;
+    this.todos.splice(0, 0, todo);
+  }
+
+  todoDeleted(id: string) {
+    this.removeTodoFromList(id)
+  }
+
+  todoDone(id: string) {
+    this.removeTodoFromList(id)
+  }
+
+  private removeTodoFromList(id: string) {
+    let index = this.todos.findIndex(x => x.id === id);
+    this.todos.splice(index, 1);//remove element from array
   }
 }
 

@@ -16,4 +16,9 @@ public class Todo
 
     [SimpleField(IsFilterable = true, IsSortable = true)]
     public DateTimeOffset CreatedAt { get; set; }
+
+    public void MarkAsDone()
+    {
+        IsDone = true;
+    }
 }

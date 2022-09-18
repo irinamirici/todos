@@ -23,6 +23,7 @@ import { CounterComponent } from './counter/counter.component';
 import { TodoListComponent } from './todo-list/todo-list.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TodoCardComponent } from './todos/todo-card.component';
+import { AddTodoComponent } from './todos/add-todo.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { TodoCardComponent } from './todos/todo-card.component';
     CounterComponent,
     TodoListComponent,
     TodoCardComponent,
+    AddTodoComponent,
   ],
   imports: [
     // material
@@ -50,7 +52,7 @@ import { TodoCardComponent } from './todos/todo-card.component';
     HttpClientModule,
     FormsModule,
     RouterModule.forRoot([
-      { path: '', component: HomeComponent, pathMatch: 'full' },
+      { path: '', component: TodoListComponent, pathMatch: 'full' },
       { path: 'counter', component: CounterComponent },
       { path: 'todos', component: TodoListComponent },
     ]),
