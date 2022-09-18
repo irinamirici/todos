@@ -11,7 +11,9 @@
 
     <div class="filler"></div>
 
-    <button (click)="addTodo = true">Add TODO</button>
+    <button mat-fab (click)="addTodo = true">
+      <mat-icon>add</mat-icon>
+    </button>
   </div>
 
   <div *ngIf="addTodo" fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap="16px grid">

@@ -1,18 +1,31 @@
 <mat-card class="todo-card">
-    <mat-card-content>
-        <p>new todo{{ description }}</p>
-    </mat-card-content>
-    <mat-divider inset></mat-divider>
-    <mat-card-actions>
-        <button mat-mini-fab color="warn" aria-label="Example icon button with a cancel icon" (click)="cancel()">
-            <mat-icon>cancel</mat-icon>
-        </button>
 
-        <button mat-mini-fab color="accent" aria-label="Example icon button with a save icon" (click)="save()">
-            <mat-icon>save</mat-icon>
-        </button>
-    </mat-card-actions>
-    <mat-card-footer *ngIf="loading">
-        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
-    </mat-card-footer>
+    <form #createForm="ngForm" (ngSubmit)="create(createForm.value)" autocomplete="off">
+        <mat-card-content>
+            <mat-form-field appearance="fill">
+                <mat-label>Add your task</mat-label>
+                <textarea matInput (ngModel)="description" name="description" required></textarea>
+                <mat-hint
+                    *ngIf="createForm.controls.description?.invalid && (createForm.controls.description?.touched || mouseOverSave)">
+                    Required</mat-hint>
+            </mat-form-field>
+
+        </mat-card-content>
+        <mat-divider inset></mat-divider>
+        <mat-card-actions align="end">
+            <button mat-mini-fab color="warn" aria-label="Example icon button with a cancel icon" (click)="cancel()">
+                <mat-icon>cancel</mat-icon>
+            </button>
+
+            <span (mouseenter)="mouseOverSave=true" (mouseleave)="mouseOverSave=false">
+                <button type="submit" [disabled]="createForm.invalid" mat-mini-fab color="accent"
+                    aria-label="Example icon button with a save icon">
+                    <mat-icon>save</mat-icon>
+                </button>
+            </span>
+        </mat-card-actions>
+        <mat-card-footer *ngIf="loading">
+            <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+        </mat-card-footer>
+    </form>
 </mat-card>

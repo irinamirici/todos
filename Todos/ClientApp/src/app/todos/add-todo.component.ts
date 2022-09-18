@@ -5,14 +5,14 @@ import { Todo } from './todo';
 
 @Component({
   selector: 'add-todo',
-  templateUrl: './add-todo.component.html',
-  //styleUrls: ['./todo-card.css']
+  templateUrl: './add-todo.component.html'
 })
 export class AddTodoComponent {
   @Output() cancelAdd = new EventEmitter();
   @Output() todoAdded = new EventEmitter<Todo>();
   loading: boolean = false;
   description: string = '';
+  mouseOverSave: boolean = false;
 
   constructor(private service: TodosService, private toastr: ToastrService) { }
 
@@ -20,9 +20,9 @@ export class AddTodoComponent {
     this.cancelAdd.emit();
   }
 
-  save() {
+  create(formValues: any) {
     this.loading = true;
-    this.service.create(this.description)
+    this.service.create(formValues.description)
       .subscribe((result: Todo) => {
         this.loading = false;
         if (result !== undefined) {
