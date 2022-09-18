@@ -1,6 +1,21 @@
+using Azure;
+using Microsoft.Extensions.Azure;
+using Todos.Persistence.Configuration;
+using Todos.Persistence.Extensions;
+
 var builder = WebApplication.CreateBuilder(args);
 
+var searchConfiguration = new SearchConfiguration();
+builder.Configuration.GetSection(SearchConfiguration.ConfigurationKey).Bind(searchConfiguration);
+
 // Add services to the container.
+builder.Services.AddAzureClients(builder =>
+{
+    builder.AddSearchIndexClient(new
+        Uri(searchConfiguration.Endpoint), new
+        AzureKeyCredential(searchConfiguration.ApiKey));
+});
+builder.Services.AddRepositories();
 
 builder.Services.AddControllersWithViews();
 
@@ -22,6 +37,6 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller}/{action=Index}/{id?}");
 
-app.MapFallbackToFile("index.html");;
+app.MapFallbackToFile("index.html"); ;
 
 app.Run();

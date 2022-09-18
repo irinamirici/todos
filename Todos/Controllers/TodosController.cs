@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Todos.Persistence;
+using Todos.Persistence.Domain;
+using Todos.Persistence.Repository;
 using Todos.Todos.ViewModels;
 
 namespace Todos.Controllers;
@@ -8,28 +9,21 @@ namespace Todos.Controllers;
 [Route("api/[controller]")]
 public class TodosController : ControllerBase
 {
-    private static readonly Todo[] SampleTodos = new Todo[]
+    private readonly IRepository<Todo> repository;
+    private readonly ILogger<TodosController> logger;
+
+    public TodosController(IRepository<Todo> repository, ILogger<TodosController> logger)
     {
-        new Todo{ Id = Guid.NewGuid().ToString(), Description = "Feed the Cat", IsDone = false, CreatedAt = DateTimeOffset.UtcNow},
-        new Todo{ Id = Guid.NewGuid().ToString(), Description = "Buy cat food", IsDone = false, CreatedAt = DateTimeOffset.UtcNow},
-        new Todo{ Id = Guid.NewGuid().ToString(), Description = "Laundry", IsDone = false, CreatedAt = DateTimeOffset.UtcNow},
-        new Todo{ Id = Guid.NewGuid().ToString(), Description = "Feed the Cat", IsDone = false, CreatedAt = DateTimeOffset.UtcNow},
-        new Todo{ Id = Guid.NewGuid().ToString(), Description = "Buy cat food", IsDone = false, CreatedAt = DateTimeOffset.UtcNow},
-        new Todo{ Id = Guid.NewGuid().ToString(), Description = "Laundry", IsDone = false, CreatedAt = DateTimeOffset.UtcNow}
-    };
-
-
-    private readonly ILogger<TodosController> _logger;
-
-    public TodosController(ILogger<TodosController> logger)
-    {
-        _logger = logger;
+        this.repository = repository;
+        this.logger = logger;
     }
 
-    [HttpGet]
-    public IEnumerable<TodoViewModel> Get()
+    [HttpPost]
+    public async Task<IEnumerable<TodoViewModel>> Search([FromBody] Search search)
     {
-        return SampleTodos
+        var todos = await this.repository.Search(search.SearchTerm);
+
+        return todos
             .Select(x => new TodoViewModel(x.Id, x.Description, x.IsDone, x.CreatedAt))
             .ToArray();
     }

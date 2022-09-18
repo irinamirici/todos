@@ -2,7 +2,7 @@
 using System.IO;
 using Microsoft.Extensions.Configuration;
 using Todos.SeedData;
-using Todos.Persistence;
+using Todos.Persistence.Domain;
 using Azure.Search.Documents;
 using Azure.Search.Documents.Models;
 using Azure.Search.Documents.Indexes;

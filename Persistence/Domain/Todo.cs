@@ -1,7 +1,7 @@
 ﻿using Azure.Search.Documents.Indexes;
 using Azure.Search.Documents.Indexes.Models;
 
-namespace Todos.Persistence;
+namespace Todos.Persistence.Domain;
 public class Todo
 {
     [SimpleField(IsKey = true)]
