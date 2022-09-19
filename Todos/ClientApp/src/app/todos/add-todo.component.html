@@ -4,7 +4,7 @@
         <mat-card-content>
             <mat-form-field appearance="fill">
                 <mat-label>Add your task</mat-label>
-                <textarea matInput (ngModel)="description" name="description" required></textarea>
+                <textarea matInput (ngModel)="description" name="description" required maxlength="25"></textarea>
                 <mat-hint
                     *ngIf="createForm.controls.description?.invalid && (createForm.controls.description?.touched || mouseOverSave)">
                     Required</mat-hint>

@@ -24,11 +24,13 @@ import { TodoListComponent } from './todo-list/todo-list.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TodoCardComponent } from './todos/todo-card.component';
 import { AddTodoComponent } from './todos/add-todo.component';
+import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavMenuComponent,
+    PagenotfoundComponent,
     HomeComponent,
     CounterComponent,
     TodoListComponent,
@@ -53,8 +55,12 @@ import { AddTodoComponent } from './todos/add-todo.component';
     FormsModule,
     RouterModule.forRoot([
       { path: '', component: TodoListComponent, pathMatch: 'full' },
-      { path: 'counter', component: CounterComponent },
       { path: 'todos', component: TodoListComponent },
+      { path: 'counter', component: CounterComponent },
+      // the proxy.conf.js will handle /swagger and pass it over to netcore backend
+      { path: 'swagger', redirectTo: '' },
+      //Wild Card Route for 404 request
+      { path: '**', pathMatch: 'full', component: PagenotfoundComponent },
     ]),
     BrowserAnimationsModule
   ],

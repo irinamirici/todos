@@ -6,6 +6,10 @@ declare let toastr: any;
     providedIn: 'root'
 })
 export class ToastrService {
+    constructor() {
+        toastr.options.positionClass = 'toast-top-center';
+    }
+
     showSuccess(message: string, title?: string) {
         toastr.success(message, title);
     }

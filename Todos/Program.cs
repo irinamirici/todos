@@ -1,3 +1,5 @@
+using Microsoft.OpenApi.Models;
+
 using Todos.Persistence.Configuration;
 using Todos.Persistence.Extensions;
 
@@ -14,9 +16,21 @@ builder.Services.AddPersistence(searchConfiguration);
 
 builder.Services.AddControllersWithViews();
 
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen(config =>
+{
+    config.SwaggerDoc("v1", new OpenApiInfo() { Title = "Todo API", Version = "v1" });
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
+
+// Configure the HTTP request pipeline.
+
+app.UseSwagger();
+app.UseSwaggerUI();
+
 if (!app.Environment.IsDevelopment())
 {
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.

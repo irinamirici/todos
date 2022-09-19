@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/3093548a-d39c-47a7-b96c-d85d2bd93aaf/AppServices/subscriptions/3093548a-d39c-47a7-b96c-d85d2bd93aaf/resourceGroups/pdfkit/providers/Microsoft.Web/sites/todo321",
+    "appService.deploySubpath": "Todos/bin/Release/net6.0/publish"
+}
