@@ -51,6 +51,12 @@ export class TodoListComponent implements OnInit {
     this.doSearch();
   }
 
+  clearSearch() {
+    this.search = '';
+    this.currentPage = 0;
+    this.doSearch();
+  }
+
   todoAdded(todo: Todo) {
     this.addTodo = false;
     this.dataSource.data.splice(0, 0, todo);

@@ -4,8 +4,11 @@
     <mat-form-field class="search-form-field" appearance="fill">
       <mat-label>Search</mat-label>
       <input matInput type="text" [(ngModel)]="search">
-      <button *ngIf="search" matSuffix mat-icon-button aria-label="Clear" (click)="doSearch()">
+      <button *ngIf="search" matSuffix mat-icon-button aria-label="Search" (click)="doSearch()">
         <mat-icon>search</mat-icon>
+      </button>
+      <button *ngIf="search" matSuffix mat-icon-button aria-label="Clear" (click)="clearSearch()">
+        <mat-icon>delete</mat-icon>
       </button>
     </mat-form-field>
 
@@ -16,8 +19,8 @@
     </button>
   </div>
 
-  <div *ngIf="addTodo" fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap="16px grid">
-    <div fxFlex="60%">
+  <div *ngIf="addTodo" fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap="26px grid">
+    <div fxFlex="20%">
       <add-todo (todoAdded)="todoAdded($event)" (cancelAdd)="addTodo = false"></add-todo>
     </div>
   </div>
