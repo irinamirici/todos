@@ -59,7 +59,7 @@ import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
       { path: 'about', component: AboutComponent },
       // the proxy.conf.js will handle /swagger and pass it over to netcore backend
       { path: 'swagger', redirectTo: '' },
-      //Wild Card Route for 404 request
+      // Wild Card Route for 404 request
       { path: '**', pathMatch: 'full', component: PagenotfoundComponent },
     ]),
     BrowserAnimationsModule

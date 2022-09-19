@@ -11,7 +11,7 @@ import { MatTableDataSource } from '@angular/material/table';
 })
 export class TodoListComponent implements OnInit {
   dataSource: MatTableDataSource<Todo> = new MatTableDataSource();
-  public search: string = '';
+  search: string = '';
   addTodo: boolean = false;
 
   pageSizeOptions: number[] = [5, 10, 15];

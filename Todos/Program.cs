@@ -26,12 +26,11 @@ builder.Services.AddSwaggerGen(config =>
     var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
     var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
     config.IncludeXmlComments(xmlPath);
+
     config.SupportNonNullableReferenceTypes();
 });
 
 var app = builder.Build();
-
-// Configure the HTTP request pipeline.
 
 // Configure the HTTP request pipeline.
 
@@ -47,7 +46,6 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
-
 
 app.MapControllerRoute(
     name: "default",

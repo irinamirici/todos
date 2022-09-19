@@ -35,18 +35,14 @@ public class TodosRepository : IRepository<Todo>
         }
     }
 
-    public async Task<Todo> Create(Todo todo)
+    public Task<Todo> Create(Todo todo)
     {
-        await this.searchClient.UploadDocumentsAsync<Todo>(new[] { todo }, throwOnAnyErrorOptions);
-
-        return todo;
+        return UploadDocument(todo);
     }
 
-    public async Task<Todo> Update(Todo todo)
+    public Task<Todo> Update(Todo todo)
     {
-        await this.searchClient.UploadDocumentsAsync<Todo>(new[] { todo }, throwOnAnyErrorOptions);
-
-        return todo;
+        return UploadDocument(todo);
     }
 
     public async Task Delete(string id)

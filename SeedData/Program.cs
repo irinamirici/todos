@@ -9,6 +9,7 @@ using Azure.Search.Documents.Indexes;
 using Azure.Search.Documents.Indexes.Models;
 using Azure;
 
+// quick and dirty way to import some data and create an index
 Console.WriteLine("Import data");
 var environmentName = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
 Console.WriteLine($"Env: {environmentName}");
