@@ -19,8 +19,7 @@ import { MatTableModule } from '@angular/material/table';
 
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
-import { HomeComponent } from './home/home.component';
-import { CounterComponent } from './counter/counter.component';
+import { AboutComponent } from './about/about.component';
 import { TodoListComponent } from './todo-list/todo-list.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TodoCardComponent } from './todos/todo-card.component';
@@ -32,8 +31,7 @@ import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
     AppComponent,
     NavMenuComponent,
     PagenotfoundComponent,
-    HomeComponent,
-    CounterComponent,
+    AboutComponent,
     TodoListComponent,
     TodoCardComponent,
     AddTodoComponent,
@@ -58,7 +56,7 @@ import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
     RouterModule.forRoot([
       { path: '', component: TodoListComponent, pathMatch: 'full' },
       { path: 'todos', component: TodoListComponent },
-      { path: 'counter', component: CounterComponent },
+      { path: 'about', component: AboutComponent },
       // the proxy.conf.js will handle /swagger and pass it over to netcore backend
       { path: 'swagger', redirectTo: '' },
       //Wild Card Route for 404 request
