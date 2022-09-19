@@ -1,3 +1,5 @@
+using Todos.Persistence.Domain;
+
 namespace Todos.Persistence.Repository;
 
 public interface IRepository<T> where T : new()
@@ -6,5 +8,5 @@ public interface IRepository<T> where T : new()
     Task<T> Create(T value);
     Task<T> Update(T value);
     Task Delete(string id);
-    Task<IEnumerable<T>> Search(string? searchTerm);
+    Task<Result<T>> Search(SearchCriteria criteria);
 }

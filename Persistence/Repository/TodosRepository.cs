@@ -56,27 +56,25 @@ public class TodosRepository : IRepository<Todo>
         await this.searchClient.DeleteDocumentsAsync("Id", new[] { id }, throwOnAnyErrorOptions);
     }
 
-    public async Task<IEnumerable<Todo>> Search(string? searchTerm)
+    public async Task<Result<Todo>> Search(SearchCriteria criteria)
     {
-        if (string.IsNullOrWhiteSpace(searchTerm))
-        {
-            searchTerm = "*"; // get everything
-        }
-        else
-        {
-            searchTerm = searchTerm + "~"; // fuzzy
-        }
-
         var searchOptions = new SearchOptions
         {
             QueryType = SearchQueryType.Full, // Lucene syntax
             SearchMode = SearchMode.All,
-            SearchFields = { "Description" }
+            SearchFields = { "Description" },
+            IncludeTotalCount = true,
+            Skip = criteria.Skip,
+            Size = criteria.ItemsPerPage
         };
-        var result = await this.searchClient.SearchAsync<Todo>(searchTerm, searchOptions);
+        var result = await this.searchClient.SearchAsync<Todo>(criteria.FuzzySearchTerm, searchOptions);
 
-        var todos = result.Value.GetResults().Select(x => x.Document).ToArray();
+        var todosResult = new Result<Todo>
+        {
+            TotalItemsCount = result.Value.TotalCount!.Value,
+            Data = result.Value.GetResults().Select(x => x.Document).ToArray()
+        };
 
-        return todos;
+        return todosResult;
     }
 }

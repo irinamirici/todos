@@ -15,6 +15,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatTableModule } from '@angular/material/table';
 
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
@@ -49,6 +50,7 @@ import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
     MatButtonModule,
     MatDividerModule,
     MatProgressBarModule,
+    MatTableModule,
 
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,

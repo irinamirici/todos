@@ -49,13 +49,16 @@ public class TodosController : ControllerBase
     }
 
     [HttpPost("search")]
-    public async Task<IEnumerable<TodoViewModel>> Search([FromBody] Search search)
+    public async Task<Paged<TodoViewModel>> Search([FromBody] SearchViewModel search)
     {
-        var todos = await this.repository.Search(search.SearchTerm);
+        var criteria = new SearchCriteria(search.SearchTerm, search.Page, search.ItemsPerPage);
+        var todosResult = await this.repository.Search(criteria);
 
-        return todos
+        var todosViewModels = todosResult.Data
             .Select(x => new TodoViewModel(x.Id, x.Description, x.IsDone, x.CreatedAt))
             .ToArray();
+
+        return new Paged<TodoViewModel>(todosViewModels, todosResult.TotalItemsCount);
     }
 
     [HttpPost("{id}/done")]

@@ -1,4 +1,4 @@
-<div *ngIf="todos; else loading">
+<div *ngIf="dataSource?.data; else loading">
   <div fxLayout="row wrap" fxLayoutAlign="left" fxLayoutGap="16px">
 
     <mat-form-field class="search-form-field" appearance="fill">
@@ -23,10 +23,14 @@
   </div>
 
   <div fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap="16px grid">
-    <div fxFlex="20%" *ngFor="let todo of todos">
+    <div fxFlex="20%" *ngFor="let todo of dataSource.data">
       <todo-card [todo]="todo" (todoDeleted)="todoDeleted($event)" (todoDone)="todoDone($event)"></todo-card>
     </div>
   </div>
+
+  <mat-paginator #paginator [length]="totalItems" [pageIndex]="currentPage" [pageSize]="itemsPerPage"
+    [pageSizeOptions]="pageSizeOptions" (page)="pageChanged($event)" aria-label="Select page">
+  </mat-paginator>
 </div>
 
 <ng-template #loading>

@@ -3,6 +3,7 @@ import { catchError, Observable, of } from "rxjs";
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Todo } from "../todos/todo";
 import { ToastrService } from "./toastr.service";
+import { Paged } from "../shared/paged";
 
 const requestOptions = {
     headers: new HttpHeaders({
@@ -17,16 +18,18 @@ const requestOptions = {
 export class TodosService {
     constructor(private http: HttpClient, private toastr: ToastrService) { }
 
-    getTodos(searchTerm: string): Observable<Todo[]> {
+    getTodos(searchTerm: string, page: number, itemsPerPage: number): Observable<Paged<Todo>> {
         let body = {
-            searchTerm: searchTerm
+            searchTerm: searchTerm,
+            page: page,
+            itemsPerPage: itemsPerPage
         }
 
-        return this.http.post<Todo[]>(
+        return this.http.post<Paged<Todo>>(
             `api/todos/search`,
             body,
             requestOptions)
-            .pipe(catchError(this.handleError<Todo[]>('getTodos')));
+            .pipe(catchError(this.handleError<Paged<Todo>>('getTodos')));
     }
 
     create(description: string): Observable<Todo> {
