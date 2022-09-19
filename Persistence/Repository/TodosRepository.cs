@@ -37,8 +37,6 @@ public class TodosRepository : IRepository<Todo>
 
     public async Task<Todo> Create(Todo todo)
     {
-        todo.Id = Guid.NewGuid().ToString();
-        todo.CreatedAt = DateTimeOffset.UtcNow;
         await this.searchClient.UploadDocumentsAsync<Todo>(new[] { todo }, throwOnAnyErrorOptions);
 
         return todo;
@@ -56,6 +54,14 @@ public class TodosRepository : IRepository<Todo>
         await this.searchClient.DeleteDocumentsAsync("Id", new[] { id }, throwOnAnyErrorOptions);
     }
 
+    /// <summary>
+    /// Performs a Fuzzy search for each word in the search criteria, 
+    /// and pages the result
+    /// </summary>
+    /// <param name="criteria">the search and pagination criteria</param>
+    /// <returns>
+    /// Returns the search result, including total item count
+    /// </returns>
     public async Task<Result<Todo>> Search(SearchCriteria criteria)
     {
         var searchOptions = new SearchOptions
@@ -76,5 +82,12 @@ public class TodosRepository : IRepository<Todo>
         };
 
         return todosResult;
+    }
+
+    private async Task<Todo> UploadDocument(Todo todo)
+    {
+        await this.searchClient.UploadDocumentsAsync<Todo>(new[] { todo }, throwOnAnyErrorOptions);
+
+        return todo;
     }
 }

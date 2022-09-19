@@ -1,3 +1,4 @@
+using System.Reflection;
 using Microsoft.OpenApi.Models;
 
 using Todos.Persistence.Configuration;
@@ -20,6 +21,12 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(config =>
 {
     config.SwaggerDoc("v1", new OpenApiInfo() { Title = "Todo API", Version = "v1" });
+
+    // generate the XML docs that'll drive the swagger docs
+    var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+    config.IncludeXmlComments(xmlPath);
+    config.SupportNonNullableReferenceTypes();
 });
 
 var app = builder.Build();

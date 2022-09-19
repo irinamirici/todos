@@ -5,20 +5,24 @@ namespace Todos.Persistence.Domain;
 public class Todo
 {
     [SimpleField(IsKey = true)]
-    public string Id { get; set; } = null!;
+    public string Id { get; init; } = null!;
 
     [SearchableField(IsSortable = false, AnalyzerName = LexicalAnalyzerName.Values.EnLucene)]
-    public string Description { get; set; } = null!;
+    public string Description { get; init; } = null!;
 
-    // TODO - learn what IsFacetable does
-    [SimpleField(IsFacetable = true, IsFilterable = true, IsSortable = true)]
+    [SimpleField(IsFilterable = true, IsSortable = true)]
     public bool IsDone { get; set; }
 
     [SimpleField(IsFilterable = true, IsSortable = true)]
-    public DateTimeOffset CreatedAt { get; set; }
+    public DateTimeOffset CreatedAt { get; init; }
 
-    public void MarkAsDone()
+    public static Todo FromDescription(string description)
     {
-        IsDone = true;
+        return new Todo
+        {
+            Id = Guid.NewGuid().ToString(),
+            Description = description,
+            CreatedAt = DateTimeOffset.UtcNow
+        };
     }
 }

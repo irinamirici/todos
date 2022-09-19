@@ -18,19 +18,22 @@ public class TodosController : ControllerBase
         this.logger = logger;
     }
 
+    /// <summary>
+    /// Creates a new TODO item
+    /// </summary>
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] CreateTodoViewModel model)
     {
-        var todo = await this.repository.Create(new Todo
-        {
-            Description = model.Description
-        });
+        var todo = await this.repository.Create(Todo.FromDescription(model.Description));
 
-        // It's not returning Created result (201),
+        // Not returning Created result (201),
         // because we don't yet have a route to get one todo by id
         return Ok(todo);
     }
 
+    /// <summary>
+    /// Deletes a TODO item by Id. If the Id doesn't exist, no error is returned.
+    /// </summary>
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(string id)
     {
@@ -48,6 +51,10 @@ public class TodosController : ControllerBase
         return Ok();
     }
 
+    /// <summary>
+    /// Returns paged TODO items, based on the search criteria and paging informatiom.
+    /// To iterate through all items, use an empty SearchTerm
+    /// </summary>
     [HttpPost("search")]
     public async Task<Paged<TodoViewModel>> Search([FromBody] SearchViewModel search)
     {
@@ -61,20 +68,25 @@ public class TodosController : ControllerBase
         return new Paged<TodoViewModel>(todosViewModels, todosResult.TotalItemsCount);
     }
 
-    [HttpPost("{id}/done")]
-    public async Task<IActionResult> MarkAsDone(string id)
+    /// <summary>
+    /// Updates a TODO's status
+    /// </summary>
+    [HttpPut("{id}/status")]
+    public async Task<IActionResult> UpdateStatus(string id, [FromBody] UpdateStatusViewModel model)
     {
         var todo = await this.repository.Find(id);
         if (todo == null)
         {
             return NotFound($"{id} not found");
         }
-        if (todo.IsDone)
+
+        if (todo.IsDone == model.IsDone)
         {
+            // nothing to update
             return Ok(todo);
         }
 
-        todo.MarkAsDone();
+        todo.IsDone = model.IsDone;
         await this.repository.Update(todo);
 
         return Ok(todo);

@@ -14,6 +14,7 @@ public class SearchCriteria
     /// i.e. it retrieves all results, as if no search term was provided
     /// </summary>
     private const string EMPTY_SEARCH = "*";
+
     public SearchCriteria(string? search, int page, int itemsPerPage)
     {
         this.SearchText = search;
@@ -21,9 +22,9 @@ public class SearchCriteria
         this.ItemsPerPage = itemsPerPage;
     }
 
-    public string? SearchText { get; init; }
-    public int Page { get; init; }
-    public int ItemsPerPage { get; init; }
+    public string? SearchText { get; }
+    public int Page { get; }
+    public int ItemsPerPage { get; }
 
     /// <summary>
     /// Builds a full Lucene syntax search expression, performing Fuzzy search for each word

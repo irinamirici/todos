@@ -43,9 +43,9 @@ export class TodosService {
     }
 
     markAsDone(id: string): Observable<Todo> {
-        return this.http.post<Todo>(
-            `api/todos/${id}/done`,
-            {},
+        return this.http.put<Todo>(
+            `api/todos/${id}/status`,
+            { isDone: true },
             requestOptions)
             .pipe(catchError(this.handleError<Todo>('markAsDone')));
     }
