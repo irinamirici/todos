@@ -61,7 +61,8 @@ export class TodoListComponent implements OnInit {
   }
 
   todoDone(id: string) {
-    this.removeTodoFromList(id)
+    let index = this.dataSource.data.findIndex(x => x.id === id);
+    this.dataSource.data[index].isDone = true;
   }
 
   private removeTodoFromList(id: string) {

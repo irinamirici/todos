@@ -1,4 +1,13 @@
 .mat-card {
     background-color: rgb(231, 231, 75);
     max-width: 200px;
+    word-break: break-all;
+}
+
+.mat-done {
+    background-color: green;
+}
+
+.card-done {
+    background-color: rgb(79, 197, 79);
 }

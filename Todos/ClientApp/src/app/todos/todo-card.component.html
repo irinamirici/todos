@@ -1,4 +1,4 @@
-<mat-card class="todo-card">
+<mat-card class="todo-card" [class.card-done]="todo.isDone">
     <mat-card-content>
         <p>{{ todo.description }}</p>
     </mat-card-content>
@@ -8,7 +8,8 @@
             <mat-icon>delete</mat-icon>
         </button>
 
-        <button mat-mini-fab color="accent" aria-label="Example icon button with a check icon" (click)="markAsDone()">
+        <button mat-mini-fab color="done" [disabled]="todo.isDone" aria-label="Example icon button with a check icon"
+            (click)="markAsDone()">
             <mat-icon>check</mat-icon>
         </button>
     </mat-card-actions>
